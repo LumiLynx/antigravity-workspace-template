@@ -1,235 +1,157 @@
-# 🪐 Google Antigravity Workspace Template
+# Antigravity Workspace Template
 
-**Production-grade starter kit for autonomous AI agents on Google Antigravity.**
+A starter kit for building AI agents with Google Antigravity. Clone it, add your API key, and start prompting.
 
-Language: [English](/docs/en/) | [中文](README_CN.md) | [Español](/docs/es/)
+[English](/docs/en/) | [中文](README_CN.md) | [Español](/docs/es/)
 
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Gemini](https://img.shields.io/badge/AI-Gemini_2.0_Flash-blue)
-![Architecture](https://img.shields.io/badge/Architecture-Event_Driven-purple)
-![Memory](https://img.shields.io/badge/Context-Infinite-orange)
 
-## 🌟 Project Intent
+## Why I built this
 
-In a world full of AI IDEs, I want enterprise-grade architecture to be as simple as **Clone → Rename → Prompt**.
+Every time I started a new project in Cursor or Antigravity, I'd waste an hour on the same decisions: folder structure, how to organize tools, where context files should go, how to handle memory. It's tedious.
 
-This project leverages IDE context awareness (via `.cursorrules` and `.antigravity/rules.md`) to pre-embed a complete **cognitive architecture** in the repo.
+So I made a template that handles all that upfront. The idea is simple: after `git clone`, your IDE already knows the architecture and the agent is ready to run.
 
-When you open this project, your IDE stops being just an editor—it becomes an **industry-savvy architect**.
+## Getting Started
 
-**First principles:**
-
-- Minimize repetition: the repo should encode defaults so setup is nearly zero.
-- Make intent explicit: capture architecture, context, and workflows in files, not tribal knowledge.
-- Treat the IDE as a teammate: contextual rules turn the editor into a proactive architect, not a passive tool.
-
-### Why do we need a thinking scaffold?
-
-While building with Google Antigravity or Cursor, I found a pain point:
-
-**The IDE and models are powerful, but the empty project is too weak.**
-
-Every new project repeats the same boring setup:
-
-- "Should my code live in `src` or `app`?"
-- "How do I define utilities so Gemini recognizes them?"
-- "How do I help the AI remember prior context?"
-
-This repetition wastes creative energy. My ideal workflow is: **after a git clone, the IDE already knows what to do.**
-
-So I built this project: **Antigravity Workspace Template**.
-
-## ⚡ Quick Start
-
-### Automated Installation (Recommended)
-
-**Linux / macOS:**
-```bash
-# 1. Clone the template
+**Windows:**
+```cmd
 git clone https://github.com/study8677/antigravity-workspace-template.git my-project
 cd my-project
+install.bat
+# Edit .env with your API keys
+python src/agent.py
+```
 
-# 2. Run the installer
-chmod +x install.sh
-./install.sh
-
-# 3. Configure your API keys
-nano .env
-
-# 4. Run the agent
+**Linux/macOS:**
+```bash
+git clone https://github.com/study8677/antigravity-workspace-template.git my-project
+cd my-project
+chmod +x install.sh && ./install.sh
+nano .env  # Add your API keys
 source venv/bin/activate
 python src/agent.py
 ```
 
-**Windows:**
-```cmd
-# 1. Clone the template
-git clone https://github.com/study8677/antigravity-workspace-template.git my-project
-cd my-project
+That's it. The agent runs and the IDE picks up the config from `.cursorrules` and `.antigravity/rules.md`.
 
-# 2. Run the installer
-install.bat
+## What's in the box
 
-# 3. Configure your API keys (notepad .env)
+This isn't a framework or SDK—it's a project structure with working code you can modify.
 
-# 4. Run the agent
-python src/agent.py
-```
+**Memory system** — Three-tier architecture with hot/warm/cold storage. Recent messages stay verbatim, older ones get embedded in ChromaDB for semantic search, and ancient history gets summarized. There's also an entity graph that tracks relationships between concepts across conversations.
 
-### Manual Installation
+**Tool auto-discovery** — Drop a Python function in `src/tools/` and it's available to the agent. No registration needed.
 
-```bash
-# 1. Clone the template
-git clone https://github.com/study8677/antigravity-workspace-template.git my-project
-cd my-project
+**Context injection** — Files in `.context/` get loaded into prompts automatically. Good for project docs, coding standards, or anything the agent should always know.
 
-# 2. Create virtual environment
-python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+**MCP integration** — Connect to external tools via Model Context Protocol. GitHub, Postgres, Brave Search, Puppeteer—just enable them in `mcp_servers.json`.
 
-# 3. Install dependencies
-pip install -r requirements.txt
+**Multi-agent swarm** — Decompose tasks across specialized agents (coder, reviewer, researcher) with a router that coordinates them.
 
-# 4. Configure your API keys
-cp .env.example .env  # (if available) or create .env manually
-nano .env
-
-# 5. Run the agent
-python src/agent.py
-```
-
-**That's it!** The IDE auto-loads configuration via `.cursorrules` + `.antigravity/rules.md`. You're ready to prompt.
-
-## 🎯 What Is This?
-
-This is **not** another LangChain wrapper. It's a minimal, transparent workspace for building AI agents that:
-
-- 🧠 Have infinite memory (recursive summarization)
-- 🛠️ Auto-discover tools from `src/tools/`
-- 📚 Auto-inject context from `.context/`
-- 🔌 Connect to MCP servers seamlessly
-- 🤖 Coordinate multiple specialist agents
-- 📦 Save outputs as artifacts (plans, logs, evidence)
-
-**Clone → Rename → Prompt. That's the workflow.**
-
-## 🚀 Key Features
-
-| Feature | Description |
-|---------|-------------|
-| 🧠 **Infinite Memory** | Recursive summarization compresses context automatically |
-| 🛠️ **Universal Tools** | Drop Python functions in `src/tools/` → auto-discovered |
-| 📚 **Auto Context** | Add files to `.context/` → auto-injected into prompts |
-| 🔌 **MCP Support** | Connect GitHub, databases, filesystems, custom servers |
-| 🤖 **Swarm Agents** | Multi-agent orchestration with Router-Worker pattern |
-| ⚡ **Gemini Native** | Optimized for Gemini 2.0 Flash |
-| 🌐 **LLM Agnostic** | Use OpenAI, Azure, Ollama, or any OpenAI-compatible API |
-| 📂 **Artifact-First** | Every task produces plans, logs, and evidence |
-
-## 📚 Documentation
-
-**Full documentation available in `/docs/en/`:**
-
-- **[Quick Start](docs/en/QUICK_START.md)** — Installation & deployment
-- **[Philosophy](docs/en/PHILOSOPHY.md)** — Core concepts & architecture
-- **[Zero-Config](docs/en/ZERO_CONFIG.md)** — Auto tool & context loading
-- **[MCP Integration](docs/en/MCP_INTEGRATION.md)** — External tool connectivity
-- **[Swarm Protocol](docs/en/SWARM_PROTOCOL.md)** — Multi-agent coordination
-- **[Roadmap](docs/en/ROADMAP.md)** — Future phases & vision
-
-## 🏗️ Project Structure
+## Project layout
 
 ```
 src/
-├── agent.py           # Main agent loop
-├── memory.py          # JSON memory manager
-├── mcp_client.py      # MCP integration
-├── swarm.py           # Multi-agent orchestration
-├── agents/            # Specialist agents
-└── tools/             # Your custom tools
+├── agent.py          # Main loop
+├── memory.py         # Basic JSON memory
+├── memory_rag.py     # RAG-enhanced memory with ChromaDB
+├── memory_graph.py   # Entity relationship graph
+├── mcp_client.py     # MCP server connections
+├── swarm.py          # Multi-agent orchestration
+├── agents/           # Specialist agents (coder, reviewer, etc.)
+└── tools/            # Your custom tools go here
 
-.context/             # Knowledge base (auto-injected)
-.antigravity/         # Antigravity rules
-artifacts/            # Outputs & evidence
+.context/             # Knowledge base files (auto-loaded)
+.antigravity/         # IDE rules
+artifacts/            # Agent outputs
+mcp_servers.json      # MCP server config
 ```
 
-## 💡 Example: Build a Tool in 30 Seconds
+## Adding a tool
+
+Create a file in `src/tools/`:
 
 ```python
 # src/tools/my_tool.py
-def analyze_sentiment(text: str) -> str:
-    """Analyzes the sentiment of given text."""
-    return "positive" if len(text) > 10 else "neutral"
+def summarize_text(text: str, max_length: int = 100) -> str:
+    """Returns a shortened version of the input text."""
+    if len(text) <= max_length:
+        return text
+    return text[:max_length].rsplit(' ', 1)[0] + '...'
 ```
 
-**Restart agent.** Done! The tool is now available.
+Restart the agent. Done.
 
-## 🔌 MCP Integration
+## MCP servers
 
-Connect to external tools:
+Edit `mcp_servers.json` to enable external tools:
 
 ```json
 {
-  "servers": [
-    {
-      "name": "github",
-      "transport": "stdio",
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
-      "enabled": true
-    }
-  ]
+  "name": "github",
+  "transport": "stdio",
+  "command": "npx",
+  "args": ["-y", "@modelcontextprotocol/server-github"],
+  "enabled": true,
+  "env": {
+    "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+  }
 }
 ```
 
-Agent automatically discovers and uses all MCP tools.
+Pre-configured options: filesystem, GitHub, Postgres, Brave Search, Puppeteer, Slack.
 
-## 🤖 Multi-Agent Swarm
+## Multi-agent mode
 
-Decompose complex tasks:
+For complex tasks, the swarm splits work across agents:
 
 ```python
 from src.swarm import SwarmOrchestrator
 
 swarm = SwarmOrchestrator()
-result = swarm.execute("Build and review a calculator")
+result = swarm.execute("Build a REST API with tests")
 ```
 
-The swarm automatically:
-- 📤 Routes to Coder, Reviewer, Researcher agents
-- 🧩 Synthesizes results
-- 📂 Saves artifacts
+The router figures out which agents to involve and synthesizes their outputs.
 
-## ✅ What's Complete
+## Memory
 
-- ✅ Phase 1-7: Foundation, DevOps, Memory, Tools, Swarm, Discovery
-- ✅ Phase 8: MCP Integration (fully implemented)
-- 🚀 Phase 9: Enterprise Core (in progress)
+The default setup uses `RAGMemoryManager` which gives you:
+- **Hot tier**: Last N messages, kept exactly as-is
+- **Warm tier**: Older messages embedded in ChromaDB for semantic retrieval
+- **Cold tier**: Compressed summaries of ancient history
+- **Entity graph**: Tracks relationships ("User prefers TypeScript", "Project uses PostgreSQL")
 
-See [Roadmap](docs/en/ROADMAP.md) for details.
+You can query the graph for context:
 
-## 🤝 Contributing
+```python
+from src.memory_graph import EntityGraphMemory
 
-Ideas are contributions too! Open an [issue](https://github.com/study8677/antigravity-workspace-template/issues) to:
-- Report bugs
-- Suggest features
-- Propose architecture (Phase 9)
+memory = EntityGraphMemory()
+relationships = memory.query_relationships("TypeScript")
+```
 
-Or submit a PR to improve docs or code.
+## Docs
 
-## 👥 Contributors
+More detail in `/docs/en/`:
+- [Quick Start](docs/en/QUICK_START.md)
+- [Philosophy](docs/en/PHILOSOPHY.md)
+- [Zero-Config](docs/en/ZERO_CONFIG.md)
+- [MCP Integration](docs/en/MCP_INTEGRATION.md)
+- [Swarm Protocol](docs/en/SWARM_PROTOCOL.md)
+- [Roadmap](docs/en/ROADMAP.md)
 
-- [@devalexanderdaza](https://github.com/devalexanderdaza) — First contributor. Implemented demo tools, enhanced agent functionality, proposed the "Agent OS" roadmap, and completed MCP integration.
-- [@Subham-KRLX](https://github.com/Subham-KRLX) — Added dynamic tools and context loading (Fixes #4) and the multi-agent cluster protocol (Fixes #6).
+## Contributing
 
-## ⭐ Star History
+Open an [issue](https://github.com/study8677/antigravity-workspace-template/issues) or submit a PR. Bug reports, feature ideas, and doc improvements all welcome.
 
-[![Star History Chart](https://api.star-history.com/svg?repos=study8677/antigravity-workspace-template&type=Date)](https://star-history.com/#study8677/antigravity-workspace-template&Date)
+## Contributors
 
-## 📄 License
+- [@devalexanderdaza](https://github.com/devalexanderdaza) — First contributor. MCP integration, demo tools, Agent OS roadmap.
+- [@Subham-KRLX](https://github.com/Subham-KRLX) — Dynamic tool loading, context injection, multi-agent protocol.
 
-MIT License. See [LICENSE](LICENSE) for details.
+## License
 
----
-
-**[Explore Full Documentation →](docs/en/)**
+MIT. See [LICENSE](LICENSE).
